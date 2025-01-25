@@ -1,3 +1,4 @@
+import numpy as np
 import torch.nn as nn
 import torch
 import torch.optim as optim
@@ -16,17 +17,17 @@ def show_images(images, labels, num_images=6):
     plt.show()
 
 
-def calculate_accuracy(loader, model):
+def calculate_accuracy(loader, trainedModel):
     correct = 0
     total = 0
-    model.eval()
+    trainedModel.eval()
     with torch.no_grad():
         for images, labels in loader:
-            output = model(images)
+            output = trainedModel(images)
             _, predicted = torch.max(output.data, 1)
-            correct += (predicted == labels).sum().item()
+            correct += np.array(predicted == labels).sum().item()
             total += labels.size(0)
-    model.train()
+    trainedModel.train()
     return correct / total
 
 
@@ -37,17 +38,10 @@ transform = transforms.Compose([
 
 train_dataset = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
 test_dataset = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
-#print(type(train_dataset))
+
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=64, shuffle=True)
-
-# examples = next(iter(train_loader))
-# images, labels = examples
-#
-#
-# show_images(images, labels)
-
 
 model = nn.Sequential(
     nn.Flatten(),

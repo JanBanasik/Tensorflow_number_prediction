@@ -1,8 +1,6 @@
 import numpy as np
 import torch.nn as nn
 import torch
-import matplotlib.pyplot as plt
-from torchvision import datasets, transforms
 
 
 def preprocess_grid(grid):
@@ -22,37 +20,8 @@ def predict(grid):
     model.load_state_dict(torch.load('mnist_model.pth'))
     model.eval()
 
-    # Predykcja
     with torch.no_grad():
         predictions = model(image_tensor)
         predicted_label = torch.argmax(predictions, dim=1).item()
 
     return predicted_label
-
-
-if __name__ == '__main__':
-    transform = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.5,), (0.5,))
-    ])
-
-    train_dataset = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
-    test_dataset = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
-    #print(type(train_dataset))
-
-    train_loader = torch.utils.data.DataLoader(dataset=train_dataset, batch_size=64, shuffle=True)
-    test_loader = torch.utils.data.DataLoader(dataset=test_dataset, batch_size=64, shuffle=True)
-
-    examples = next(iter(train_loader))
-
-    # Rozdziel obrazki (examples[0]) i ich etykiety (examples[1])
-    images, labels = examples
-
-    # Wyświetl pierwszy obrazek w batchu
-    plt.imshow(images[0].squeeze(), cmap='Greys')
-    plt.axis('off')
-    plt.show()
-    # for i in images[0]:
-    #     print(*i)
-    # # Wypisz odpowiadającą mu labelkę
-    # print(f"Label for the first image: {labels[0].item()}")
