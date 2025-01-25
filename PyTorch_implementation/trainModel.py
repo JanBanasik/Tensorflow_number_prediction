@@ -6,6 +6,13 @@ import matplotlib.pyplot as plt
 from torchvision import datasets, transforms
 
 
+
+class BinarizeToMinusOne:
+    def __call__(self, tensor):
+        tensor[tensor < 0] = -1
+        return tensor
+
+
 def show_images(images, labels, num_images=6):
     plt.figure(figsize=(12, 4))
     for i in range(num_images):
@@ -33,7 +40,8 @@ def calculate_accuracy(loader, trainedModel):
 
 transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
+    transforms.Normalize((0.5,), (0.5,)),
+    BinarizeToMinusOne()
 ])
 
 train_dataset = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
@@ -72,5 +80,6 @@ for epoch in range(num_epochs):
     print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {running_loss / len(train_loader):.4f}, "
           f"Train Accuracy: {training_accuracy * 100:.2f}%, Test Accuracy: {testing_accuracy * 100:.2f}%")
 
-torch.save(model.state_dict(), "mnist_model_adam_optimizer.pth")
-print("Model zapisany jako 'mnist_model.pth'")
+path = "mnist_model_adam_optimizer_binaryCodedToMinusOne.pth"
+torch.save(model.state_dict(), path)
+print(f"Model zapisany jako {path}")

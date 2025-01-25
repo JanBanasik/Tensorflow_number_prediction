@@ -17,7 +17,7 @@ def predict(grid):
         nn.ReLU(),
         nn.Linear(256, 10),
     )
-    model.load_state_dict(torch.load('mnist_model.pth'))
+    model.load_state_dict(torch.load('mnist_model_adam_optimizer_binaryCodedToMinusOne.pth'))
     model.eval()
 
     with torch.no_grad():

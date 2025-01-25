@@ -13,10 +13,10 @@ pygame.font.init()
 FONT = pygame.font.SysFont('Arial', 30)
 
 
-def draw_label(win, text, x, y):
-    label = FONT.render(text, True, Color.PURPLE.value)
+def draw_label(win, text, x, y, font_size=30, color=(255, 0, 0)):
+    font = pygame.font.Font(None, font_size)
+    label = font.render(text, True, color)
     win.blit(label, (x, y))
-
 
 def make_grid(rows, width) -> list[list[Node]]:
     grid = []
@@ -43,7 +43,7 @@ def draw(win, grid, rows, width, currentPrediction):
             node.draw(win)
     draw_grid(win, rows, width)
     if currentPrediction != "None":
-        draw_label(win, f"Prediction: {currentPrediction}", 10, 10)
+        draw_label(win, f"Prediction: {currentPrediction}", 10, 10, font_size=50, color=(255, 0, 0))
     pygame.display.update()
 
 
