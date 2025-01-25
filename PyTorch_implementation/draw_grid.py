@@ -45,6 +45,8 @@ def draw(win, grid, rows, width, currentPrediction):
     draw_grid(win, rows, width)
     if currentPrediction != "None":
         draw_label(win, f"Prediction: {currentPrediction}", 10, 10, font_size=50, color=(255, 0, 0))
+    else:
+        draw_label(win, f"Draw a number, then press 'P' to predict", 10, 10, font_size=50, color=(255, 0, 0))
     pygame.display.update()
 
 
