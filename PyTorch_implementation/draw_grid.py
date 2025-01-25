@@ -1,11 +1,12 @@
 import pygame
 from Colors import Color
 from Node import Node
-from predict_labels import predict
+from LabelPredictorClass import LabelPredictor
 import numpy as np
 import torch
 
 WIDTH = 800
+predictor = LabelPredictor()
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption('Shortest Path Visualization')
 
@@ -61,7 +62,7 @@ def make_predictions(labeled_image):
 
     input_tensor = torch.tensor(labeled_image_np)
 
-    prediction = predict(input_tensor)
+    prediction = predictor.predict(input_tensor)
 
     return prediction
 

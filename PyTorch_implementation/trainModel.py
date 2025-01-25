@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from torchvision import datasets, transforms
 
 
-
 class BinarizeToMinusOne:
     def __call__(self, tensor):
         tensor[tensor < 0] = -1
