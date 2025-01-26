@@ -8,7 +8,7 @@ import torch
 WIDTH = 800
 predictor = LabelPredictor()
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
-pygame.display.set_caption('Shortest Path Visualization')
+pygame.display.set_caption('Number prediction')
 
 pygame.font.init()
 FONT = pygame.font.SysFont('Arial', 30)
