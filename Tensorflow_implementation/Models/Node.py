@@ -1,5 +1,5 @@
 import pygame
-from Colors import Color
+from Tensorflow_implementation.Models.Colors import Color
 
 
 class Node:

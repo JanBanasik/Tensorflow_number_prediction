@@ -1,64 +1,98 @@
+# Handwritten Digit Prediction using TensorFlow and Pygame
 
-# Handwritten Digit Recognition with Pygame
+### This project is a simple graphical application built with the Pygame library, allowing the user to draw a digit from 0 to 9.
+### The drawn image is then processed and passed to a Convolutional Neural Network (CNN) model (built using TensorFlow/Keras), which predicts the digit. 
+### A separate script allows training the model on the MNIST dataset.
 
-This project uses a deep learning model to recognize handwritten digits using the MNIST dataset. The application allows the user to draw a digit on a 28x28 grid and predict its label using a pre-trained model.
+---
 
-## Features
-- **Draw Grid:** The user can draw on a 28x28 grid with the mouse. Right-click to erase the drawing.
-- **Predict Digit:** Press 'P' to predict the digit based on the drawn image.
-- **Clear Grid:** Press 'C' to clear the grid.
-- **Model:** The application uses a neural network trained on the MNIST dataset with binary coded labels.
+# ✨ Features
 
-## Installation
+- ### Interactive drawing interface using Pygame.
+- ### CNN model (TensorFlow/Keras) trained to recognize handwritten digits (0–9).
+- ### Ability to train the model from scratch on MNIST.
+- ### Save/load model support.
+- ### On-screen prediction feedback.
 
-To run this project, you need Python and the following libraries:
+---
 
-- `pygame` – for creating the interactive grid and drawing
-- `torch` – for the neural network and model prediction
-- `numpy` – for array manipulation
+# 🛠 Requirements
 
-You can install the required libraries by running the following:
+### Python 3.x with the following libraries:
+
+- `pygame`
+- `tensorflow`
+- `numpy`
+- `matplotlib` (only needed during training)
+
+### Install all dependencies with:
 
 ```bash
-pip install pygame torch numpy
+pip install -r requirements.txt
 ```
 
-## How to Use
+## 📁 Project Structure
+```
+Tensorflow_number_prediction/
+├── Tensorflow_implementation/
+│   ├── main/
+│   │   ├── __init__.py
+│   │   └── main.py                  # Main Pygame application
+│   ├── Models/
+│   │   ├── __init__.py
+│   │   ├── CNN_MNIST_class.py       # CNN model definition
+│   │   ├── Colors.py                # Pygame color constants
+│   │   ├── LabelPredictorClass.py   # Model loading and prediction class
+│   │   └── Node.py                  # Grid cell representation
+│   └── Utils/
+│       ├── __init__.py
+│       ├── cnn_mnist.keras          # Saved trained model
+│       ├── draw_grid.py             # Grid drawing and UI logic
+│       └── trainModel.py            # Training script
+├── LICENSE
+├── README.md
+└── requirements.txt
 
-1. **Run the Application:**
-   - To run the program, execute the Python script with the Pygame application.
-   
-2. **Drawing:**
-   - Left-click on the grid to draw your digit. Each square you click will become black (representing a filled pixel).
-   - Right-click to erase any mistakes (it will return to white).
-   
-3. **Prediction:**
-   - Press the **'P'** key to predict the drawn digit. The prediction will be displayed on the screen.
-   
-4. **Clear the Grid:**
-   - Press the **'C'** key to clear the grid and reset the drawing.
+```
 
-## File Structure
+# 🚀 How to Run
 
-- `main.py`: The main file that runs the application, creates the grid, and handles user input.
-- `Node.py`: Contains the `Node` class that represents each cell in the grid.
-- `Color.py`: Defines various colors used for the grid and interface.
-- `LabelPredictorClass.py`: Contains the `LabelPredictor` class, which loads the pre-trained model and performs predictions.
-- `Colors.py`: Contains an enum for different colors used in the app.
+## 1. Clone the repository
+```bash
+git clone git@github.com:JanBanasik/Tensorflow_number_prediction.git
+cd Tensorflow_number_prediction
+```
 
-## Example
+## 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
 
-When the user draws a digit (e.g., a "3") on the grid and presses 'P', the model will predict the digit and display the result on the screen.
+## 3. Train the model (optional)
+### If cnn_mnist.keras is missing in Tensorflow_number_prediction/, train the model:
 
-## Requirements
+```bash
+python -m Tensorflow_implementation.Utils.trainModel
+```
 
-- Python 3.x
-- Pygame, PyTorch, NumPy
+## 4. Run the Pygame application
+```bash
+python -m Tensorflow_implementation.main.main
+```
 
-## Model Details
+## 🧑‍💻 Usage Instructions
+## Once the app launches:
 
-The model is a simple feedforward neural network trained on the MNIST dataset using the Adam optimizer. The input is a 28x28 grayscale image, where pixels are encoded as either -1 (white) or 1 (black).
+- Draw: Hold left mouse button and drag.
 
-## License
+- Erase: Hold right mouse button.
 
-This project is licensed under the MIT License.
+- Predict: Press the P key.
+
+- Clear Board: Press the C key.
+
+- Prediction result appears in the top-left corner.
+
+# 📄 License
+### This project is licensed under the [LICENSE NAME, e.g., MIT] License.
+### See the LICENSE file for more details.

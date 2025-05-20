@@ -1,17 +1,12 @@
 import pygame
-from Colors import Color
-from Node import Node
-from LabelPredictorClass import LabelPredictor
+from Tensorflow_implementation.Models.Colors import Color
+from Tensorflow_implementation.Models.Node import Node
+from Tensorflow_implementation.Models.LabelPredictorClass import LabelPredictor
 import numpy as np
-import torch
 
-WIDTH = 800
-predictor = LabelPredictor()
-WIN = pygame.display.set_mode((WIDTH, WIDTH))
-pygame.display.set_caption('Number prediction')
 
-pygame.font.init()
-FONT = pygame.font.SysFont('Arial', 30)
+
+
 
 
 def draw_label(win, text, x, y, font_size=30, color=(255, 0, 0)):
@@ -56,15 +51,12 @@ def get_clicked_pos(pos, rows, width):
     return x // gap, y // gap
 
 
-def make_predictions(labeled_image):
+def make_predictions(labeled_image, predictor):
 
     labeled_image_np = np.array(labeled_image, dtype=np.float32)
 
-    labeled_image_np = np.expand_dims(labeled_image_np, axis=0)
 
-    input_tensor = torch.tensor(labeled_image_np)
-
-    prediction = predictor.predict(input_tensor)
+    prediction = predictor.predict(labeled_image_np)
 
     return prediction
 
@@ -81,7 +73,7 @@ def transform_grid(grid):
     return result
 
 
-def main(win, width):
+def main(win, width, predictor):
     ROWS = 28
     grid = make_grid(ROWS, width)
 
@@ -112,7 +104,7 @@ def main(win, width):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
                     labeled_image = transform_grid(grid)
-                    label = make_predictions(labeled_image)
+                    label = make_predictions(labeled_image, predictor)
                     draw_label(win, f"Predicted: {label}", 10, 10)
                     currPrediction = label
                     pygame.display.update()
@@ -126,4 +118,14 @@ def main(win, width):
     pygame.quit()
 
 
-main(WIN, WIDTH)
+if __name__ == "__main__":
+    # WIDTH = 800
+    # WIN = pygame.display.set_mode((WIDTH, WIDTH))
+    # pygame.display.set_caption('Number prediction')
+    #
+    # pygame.font.init()
+    # FONT = pygame.font.SysFont('Arial', 30)
+    #
+    # predictor = LabelPredictor()
+    # draw_grid.main()
+    pass
